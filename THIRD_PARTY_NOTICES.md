@@ -1,0 +1,3 @@
+# Third-party notices
+
+The owned integration preserves its existing AGPL-3.0-or-later license and the Navid Media shared framework. Native request-shape facts are transformed from Brandfetch’s public OpenAPI metadata, which declares MIT. Original and distributed checksums are recorded in src/tools/api-source.json; descriptions, examples and upstream executable code are excluded. Official/community code was inspected or exercised only for comparison and is not redistributed here. Dependency notices remain in installed packages. Packaging/development dependencies are excluded from the desktop runtime. Provider trademarks, terms and asset rights remain separate.

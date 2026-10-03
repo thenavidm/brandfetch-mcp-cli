@@ -1,0 +1,114 @@
+{
+  "manifest_version": "0.2",
+  "name": "brandfetch",
+  "display_name": "Brandfetch MCP Server & CLI",
+  "version": "2.0.0",
+  "description": "Brandfetch brand/context/search tools with private profiles and approved local downloads.",
+  "long_description": "14 shared tools: 12 reads/helpers and two confirmed operations. Current Brand API V2, bounded comparisons, explicit identifier routes, browser-only hotlinks and private approved asset downloads.",
+  "author": {
+    "name": "Navid Moazzez",
+    "url": "https://navid.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thenavidm/brandfetch-mcp-cli"
+  },
+  "homepage": "https://navid.me/mcp-servers/brandfetch",
+  "documentation": "https://github.com/thenavidm/brandfetch-mcp-cli/blob/main/INSTALL.md",
+  "support": "https://github.com/thenavidm/brandfetch-mcp-cli/issues",
+  "license": "AGPL-3.0-or-later",
+  "keywords": [
+    "mcp",
+    "mcp-server",
+    "model-context-protocol",
+    "cli",
+    "command-line-tool",
+    "brandfetch",
+    "brand-assets",
+    "logos",
+    "brand-enrichment",
+    "brand-context",
+    "comparison",
+    "api-key",
+    "codex",
+    "claude-code",
+    "claude-desktop",
+    "cursor",
+    "ai-agents",
+    "typescript",
+    "desktop-extension",
+    "private-accounts",
+    "json",
+    "mutation-approval",
+    "write-safety",
+    "gemini-cli",
+    "windsurf",
+    "open-source",
+    "creator-workflows",
+    "private-downloads",
+    "read-only",
+    "schema-validation"
+  ],
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/index.js"
+      ],
+      "env": {
+        "BRANDFETCH_API_KEY": "${user_config.api_key}",
+        "BRANDFETCH_TOKEN_FILE": "${user_config.token_file}",
+        "BRANDFETCH_READ_ONLY": "${user_config.read_only}",
+        "BRANDFETCH_ALLOW_DESTRUCTIVE": "${user_config.allow_destructive}",
+        "BRANDFETCH_CLIENT_ID": "${user_config.client_id}"
+      }
+    }
+  },
+  "user_config": {
+    "token_file": {
+      "type": "string",
+      "title": "Private token-only file",
+      "description": "Absolute owner-private Brand API key file; overrides the environment key.",
+      "required": false
+    },
+    "read_only": {
+      "type": "boolean",
+      "title": "Read only",
+      "description": "Hide and refuse prefetch crawling and private local asset downloads; reads can still use provider quota.",
+      "default": false,
+      "required": false
+    },
+    "api_key": {
+      "type": "string",
+      "title": "Brand API key",
+      "description": "Private REST Brand API Bearer key; official MCP bf1 tokens are not interchangeable.",
+      "required": false,
+      "sensitive": true
+    },
+    "allow_destructive": {
+      "type": "boolean",
+      "title": "Allow confirmed mutations",
+      "description": "Permit mutation execution only when the tool call explicitly confirms the exact action. Disable to refuse all mutations.",
+      "default": true,
+      "required": false
+    },
+    "client_id": {
+      "type": "string",
+      "title": "Logo API client ID",
+      "description": "Separate application client ID for search and browser-only logo URLs. Not a Brand API key.",
+      "required": false
+    }
+  },
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "node": ">=22"
+    }
+  }
+}

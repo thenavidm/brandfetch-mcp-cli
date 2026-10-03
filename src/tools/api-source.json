@@ -1,0 +1,27 @@
+{
+  "officialRepo": "Brandfetch/brandfetch-mcp-server",
+  "officialSha": "0995f0f39a43206d9082945d8b424c449dc6147d",
+  "defaultBranch": "main",
+  "brandfetch-mcp-server": {
+    "version": "1.0.0",
+    "archiveSHA256": "1a273ade1d101707b094e7188690a1878d805f8e6d0db030f48a1b66d2a2e8f6"
+  },
+  "@sourcescape/external": {
+    "version": "0.1.2",
+    "archiveSHA256": "0faac4515ddb2f88f3f8122d8304941d343a2167f5f7dbba8c081c154c5a904d"
+  },
+  "openapi": {
+    "url": "https://docs.brandfetch.com/openapi.json",
+    "sha256": "301955555b54cfdad90fcb655e70e7a8b5f6c53bf11362001b8d0b0de8d85bf0",
+    "distributedMetadataSha256": "73933876e20fa1a56029ec1f711f4ecabd46b5aa5afcabe49dc62e9470d7355c",
+    "operationCount": 11,
+    "excluded": [
+      "GET /v2/agents/access",
+      "POST /v2/agents/access"
+    ],
+    "localCorrections": [
+      "Search query template moved to query parameter c",
+      "String lengths and strict transaction JSON body are local validation bounds"
+    ]
+  }
+}

@@ -1,0 +1,404 @@
+[
+  {
+    "operationId": "getBrandData",
+    "method": "GET",
+    "path": "/v2/brands/{identifier}",
+    "parameters": [
+      {
+        "name": "identifier",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      },
+      {
+        "name": "allowNsfw",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      {
+        "name": "cachedOnly",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    ],
+    "bodySchema": {},
+    "risk": "read",
+    "responses": [
+      "200",
+      "204",
+      "400",
+      "401",
+      "402",
+      "404",
+      "429"
+    ]
+  },
+  {
+    "operationId": "prefetchBrand",
+    "method": "HEAD",
+    "path": "/v2/brands/{identifier}",
+    "parameters": [
+      {
+        "name": "identifier",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      }
+    ],
+    "bodySchema": {},
+    "risk": "destructive",
+    "responses": [
+      "200",
+      "202",
+      "400",
+      "401",
+      "403",
+      "404",
+      "429",
+      "503"
+    ]
+  },
+  {
+    "operationId": "getBrandDataByDomain",
+    "method": "GET",
+    "path": "/v2/brands/domain/{domain}",
+    "parameters": [
+      {
+        "name": "domain",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      },
+      {
+        "name": "allowNsfw",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      {
+        "name": "cachedOnly",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    ],
+    "bodySchema": {},
+    "risk": "read",
+    "responses": [
+      "200",
+      "204",
+      "400",
+      "401",
+      "402",
+      "404",
+      "429"
+    ]
+  },
+  {
+    "operationId": "prefetchBrandByDomain",
+    "method": "HEAD",
+    "path": "/v2/brands/domain/{domain}",
+    "parameters": [
+      {
+        "name": "domain",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      }
+    ],
+    "bodySchema": {},
+    "risk": "destructive",
+    "responses": [
+      "200",
+      "202",
+      "400",
+      "401",
+      "403",
+      "404",
+      "429",
+      "503"
+    ]
+  },
+  {
+    "operationId": "getBrandDataByTicker",
+    "method": "GET",
+    "path": "/v2/brands/ticker/{ticker}",
+    "parameters": [
+      {
+        "name": "ticker",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      },
+      {
+        "name": "allowNsfw",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      {
+        "name": "cachedOnly",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    ],
+    "bodySchema": {},
+    "risk": "read",
+    "responses": [
+      "200",
+      "204",
+      "400",
+      "401",
+      "402",
+      "404",
+      "429"
+    ]
+  },
+  {
+    "operationId": "getBrandDataByIsin",
+    "method": "GET",
+    "path": "/v2/brands/isin/{isin}",
+    "parameters": [
+      {
+        "name": "isin",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      },
+      {
+        "name": "allowNsfw",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      {
+        "name": "cachedOnly",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    ],
+    "bodySchema": {},
+    "risk": "read",
+    "responses": [
+      "200",
+      "204",
+      "400",
+      "401",
+      "402",
+      "404",
+      "429"
+    ]
+  },
+  {
+    "operationId": "getBrandDataByCrypto",
+    "method": "GET",
+    "path": "/v2/brands/crypto/{symbol}",
+    "parameters": [
+      {
+        "name": "symbol",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      },
+      {
+        "name": "allowNsfw",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean"
+        }
+      },
+      {
+        "name": "cachedOnly",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    ],
+    "bodySchema": {},
+    "risk": "read",
+    "responses": [
+      "200",
+      "204",
+      "400",
+      "401",
+      "402",
+      "404",
+      "429"
+    ]
+  },
+  {
+    "operationId": "searchBrands",
+    "method": "GET",
+    "path": "/v2/search/{name}",
+    "parameters": [
+      {
+        "name": "name",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      },
+      {
+        "name": "c",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512
+        }
+      }
+    ],
+    "bodySchema": {},
+    "risk": "read",
+    "responses": [
+      "429",
+      "503",
+      "200"
+    ]
+  },
+  {
+    "operationId": "getBrandContext",
+    "method": "GET",
+    "path": "/v2/context/{domain}",
+    "parameters": [
+      {
+        "name": "domain",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2048
+        }
+      },
+      {
+        "name": "cachedOnly",
+        "in": "query",
+        "required": false,
+        "schema": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    ],
+    "bodySchema": {},
+    "risk": "read",
+    "responses": [
+      "200",
+      "204",
+      "400",
+      "401",
+      "402",
+      "404",
+      "429"
+    ]
+  },
+  {
+    "operationId": "getBrandFromTransaction",
+    "method": "POST",
+    "path": "/v2/brands/transaction",
+    "parameters": [],
+    "bodySchema": {
+      "type": "object",
+      "properties": {
+        "transactionLabel": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "countryCode": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        }
+      },
+      "required": [
+        "transactionLabel",
+        "countryCode"
+      ],
+      "additionalProperties": false
+    },
+    "risk": "read",
+    "responses": [
+      "200",
+      "400",
+      "401",
+      "402",
+      "404",
+      "429",
+      "503"
+    ]
+  },
+  {
+    "operationId": "getViewer",
+    "method": "GET",
+    "path": "/v2/viewer",
+    "parameters": [],
+    "bodySchema": {},
+    "risk": "read",
+    "responses": [
+      "200",
+      "401",
+      "403"
+    ]
+  }
+]
