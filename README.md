@@ -859,6 +859,7 @@ No fresh matched Codex measurements are available. Local output selection is pro
 Restart npx @latest, update global npm or install the new desktop bundle. Remove client entries and revoke provider credentials separately; private downloaded files remain.
 
 </details>
+
 ## Questions
 
 Open a sanitized [issue](https://github.com/thenavidm/brandfetch-mcp-cli/issues). Use SECURITY.md for private reports.
