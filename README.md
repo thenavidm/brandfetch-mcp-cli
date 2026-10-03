@@ -13,7 +13,7 @@ Brandfetch MCP server and CLI for Codex and AI agents. Fourteen shared tools for
 
 One package gives you a task CLI, local stdio MCP and versioned desktop bundle. Built and maintained by [Navid Moazzez](https://navid.me?utm_source=github&utm_medium=referral&utm_campaign=brandfetch-mcp-cli&utm_content=readme). Complete setup: [navid.me](https://navid.me/mcp-servers/brandfetch?utm_source=github&utm_medium=referral&utm_campaign=brandfetch-mcp-cli&utm_content=guide).
 
-<img src="https://cdn.navid.me/repos/brandfetch-mcp-cli.gif?v=2.0.0" alt="Illustrated Brandfetch workflow using the same terminal component as navid.me" width="520">
+<img src="https://cdn.navid.me/repos/brandfetch-mcp-cli-retina.gif" alt="Illustrated Brandfetch workflow using the same terminal component as navid.me" width="520">
 
 The terminal illustrates shipped commands; it is not a recorded provider account session. Official hosted OAuth/rich cards and existing community CLIs are compared below. Live account outcomes, desktop GUI and matched Codex usage remain separately pending.
 
