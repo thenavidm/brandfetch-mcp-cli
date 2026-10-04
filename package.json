@@ -1,12 +1,13 @@
 {
   "name": "@thenavidm/brandfetch-mcp-cli",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Brandfetch MCP and shared CLI with isolated profiles, bounded comparisons and approved private asset downloads.",
   "type": "module",
   "main": "./dist/index.js",
   "bin": {
     "brandfetch-mcp": "dist/index.js",
-    "brandfetch-cli": "dist/index.js"
+    "brandfetch-cli": "dist/index.js",
+    "brandfetch-mcp-cli": "dist/npx.js"
   },
   "engines": {
     "node": ">=22"
