@@ -15,7 +15,7 @@ The official MCP is a strong alternative when provider-managed OAuth, rich brand
 
 The published OpenAPI search path embeds ?c={clientId}; this package routes c as a query parameter from the selected profile. The agent overview describes keyless search while the endpoint reference requires c; the package follows the endpoint's explicit client-ID contract and fails locally when it is missing. We have not tested credential-free provider search. Agent access/payment endpoints are deliberately excluded: no wallet, card, auto-purchase or credential rotation.
 
-No matched successful Codex task/token measurements, live provider outcomes or desktop GUI installation are claimed. Source/fixture evidence is recorded separately from public artifact and CMS release checks. Official and community versions should be rechecked for every update.
+No live provider outcomes or desktop GUI installation are claimed; README section 7 has this package's measured token costs. Source/fixture evidence is recorded separately from public artifact and CMS release checks. Official and community versions should be rechecked for every update.
 
 
 | Route | What reaches the agent | What is proven |
@@ -25,4 +25,4 @@ No matched successful Codex task/token measurements, live provider outcomes or d
 | Official MCP | Hosted OAuth, rich cards/resources and provider tools | Current docs/source inspected; hosted task not benchmarked |
 | Focused colors/fonts/comparison | Requested fields with explicit bounds | Output filtering and request caps, not measured token savings |
 
-No fresh matched Codex measurements are published. Measure actual API usage, identical successful tasks/resources/permissions, client/model/package versions and date. Schema characters divided by four, another repo's numbers or counts do not establish efficiency. MCP schema loading depends on the client. Neither surface requires Claude Code; its measurements are deferred at Navid's instruction.
+README section 7 has this package's own costs, measured in Claude Code and Codex against 2.0.1 on 2026-10-05. Schema characters divided by four, another repo's numbers or counts do not establish efficiency, and no other offering was measured.

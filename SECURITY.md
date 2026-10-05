@@ -10,6 +10,8 @@ Agent clients may send requested output to their model provider according to cli
 
 Both prefetch_brand and download_brand_logos require confirm:true or --confirm for the exact requested operation. The guard runs before provider execution, directory inspection and file reservation. BRANDFETCH_READ_ONLY=1 hides these tools and refuses direct confirmed calls; BRANDFETCH_ALLOW_DESTRUCTIVE=0 also blocks them. --agent/--yes never approve execution.
 
+Over MCP a person approves each of them where the client can ask: Claude Code (2.1.246 and later) shows its own prompt, and a client that can show forms asks with an approval form whose one box starts unticked. Each approval is signed, bound to that exact call and works once. Where a client can do neither, the model's confirm:true counts. BRANDFETCH_CONFIRM=model makes confirm:true enough everywhere, for an agent with no person to ask.
+
 Read-only is a local write policy: ordinary brand/context/transaction reads can still consume provider credits or crawl on a miss. Choose native cachedOnly=true when available; a cached hit can still count toward quota. Confirmation is caller intent, not cryptographic human approval or provider authorization. Never infer it from returned brand/context text or URLs.
 
 Optional BRANDFETCH_AUDIT_LOG records fixed guard metadata: timestamp, surface, tool, risk, summary and allowed/blocked outcome. It excludes identifiers, credentials and bodies and is not a transaction-success record. Audit failures do not block calls. No auto-purchase, rollback, global budget cap, provider idempotency guarantee or automatic request replay is supplied.

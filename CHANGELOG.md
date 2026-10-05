@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.0.0, 2026-10-05
+
+Built on [Slipway](https://github.com/thenavidm/slipway) 0.1.13. The 14 tools keep their names and arguments, and every difference below was measured against 2.0.1, the last version on npm, before release.
+
+- **A person approves each write over MCP.** `prefetch_brand` and `download_brand_logos` still need confirmation. Claude Code (2.1.246 and later) shows its own prompt, and a client that can show forms asks with an approval form whose one box starts unticked. Approvals are signed, bound to the exact call and work once. Where a client can do neither, the model's `confirm: true` still counts, and `BRANDFETCH_CONFIRM=model` makes it enough everywhere. The audit log records who approved each write.
+- **`BRANDFETCH_ALLOW_DESTRUCTIVE=0` still refuses both**, confirmed or not, as 2.0 did.
+- **Brandfetch's status picks the exit code.** A request Brandfetch rejects (400 or 422) exits 2 instead of 5, and a removed resource (410) 3 instead of 5. 401 and 403 still exit 4, 404 3, a rate limit or spent quota (402 and 429) 7, a server error 5, and an unknown profile or nothing configured 10. 1 now means an unexpected error.
+- **`which <words>` finds a command**, and `agent-context` describes every command, flag and setting as JSON. In Codex 0.159.3, finding the command that downloads a brand's logo files took a median of 83,250 input tokens over the CLI instead of 103,759 (five runs each): every 2.0.1 run guessed a `download` command that does not exist, because 2.0.1's help listed none, and every 3.0.0 run asked `which`.
+- **`install <client>`** adds the server to Claude Code, Codex, Claude Desktop, Cursor, VS Code or Gemini CLI in each one's own format, and **`brandfetch-mcp --http`** serves the same tools over Streamable HTTP, on 127.0.0.1:8787 unless told otherwise.
+- **Less work to start.** Each input schema now compiles on its first use rather than at load, and the entry turns on Node's compile cache. The server spends 171 ms of CPU before its first answer where 2.0.1 spent 212 (median of 21 runs, taking turns on one busy Mac). npx installs 10 dependencies instead of 94. A test still compiles every schema.
+- **Docs.** README section 7 has the measured Claude Code and Codex costs, where 2.0 said they were pending.
+
+### Upgrading
+
+Over MCP, expect an approval prompt or form before a prefetch or a download; a headless agent that should do either with `confirm: true` alone needs `BRANDFETCH_CONFIRM=model`. A script that read exit 5 as a rejected request should read 2, and as a removed resource 3. An error's JSON keeps `error` and `status`; its `code` is now Slipway's (`usage`, `auth`, `not_found`, `rate_limited`, `api`, `not_configured`). Over MCP, an argument that fails the schema comes back as the MCP SDK's own message, "Input validation error: …", instead of JSON. With `BRANDFETCH_READ_ONLY=1`, a client that calls a hidden write gets "tool not found" instead of a refusal naming `BRANDFETCH_READ_ONLY`; the CLI still names it. The audit log's lines gain `confirmed_by`, and each allowed write is followed by a `done` or `failed` line. A script that pipes JSON-RPC into the server must keep stdin open until it reads the answer: the server now stops when its input ends, as the MCP stdio binding asks. `--http` refuses a page from another site unless `BRANDFETCH_HTTP_ALLOWED_ORIGINS` lists it. Some terminal screens grew: the general help by 226 tokens, for `which`, `install`, the flags, the settings and the exit codes it now lists; the command list by 16; `download-brand-logos --help` by 22 and `prefetch-brand --help` by 12; and a missing argument's error by 14, for its code and a hint. `SKILL.md` is 66 tokens longer in Claude Code, because it says how approval works over MCP and lists every exit code.
+
 ## 2.0.1, 2026-10-04
 
 - **`npx -y @thenavidm/brandfetch-mcp-cli` always starts the MCP server.** npx starts whichever binary the npm registry lists first when they share one file, and the registry does not keep the published order, so an MCP client set up with this README's install line could get `brandfetch-cli` and its command list instead of a server. A third binary named after the package now always starts the server, and npx picks it by name.

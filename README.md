@@ -11,11 +11,11 @@
 
 Brandfetch MCP server and CLI for Codex and AI agents. Fourteen shared tools for current brand data, context, transaction enrichment, bounded comparison and approved private assets across isolated named profiles.
 
-One package gives you a task CLI, local stdio MCP and versioned desktop bundle. Built and maintained by [Navid Moazzez](https://navid.me?utm_source=github&utm_medium=referral&utm_campaign=brandfetch-mcp-cli&utm_content=readme). Complete setup: [navid.me](https://navid.me/mcp-servers/brandfetch?utm_source=github&utm_medium=referral&utm_campaign=brandfetch-mcp-cli&utm_content=guide).
+One package gives you a task CLI, local stdio MCP and versioned desktop bundle. Built and maintained by [Navid Moazzez](https://navid.me?utm_source=github&utm_medium=referral&utm_campaign=brandfetch-mcp-cli&utm_content=readme). Built on [Slipway](https://github.com/thenavidm/slipway), which turns one definition of each tool into the MCP server and the CLI. Complete setup: [navid.me](https://navid.me/mcp-servers/brandfetch?utm_source=github&utm_medium=referral&utm_campaign=brandfetch-mcp-cli&utm_content=guide).
 
 <img src="https://cdn.navid.me/repos/brandfetch-mcp-cli-retina.gif" alt="Illustrated Brandfetch workflow using the same terminal component as navid.me" width="520">
 
-The terminal illustrates shipped commands; it is not a recorded provider account session. Official hosted OAuth/rich cards and existing community CLIs are compared below. Live account outcomes, desktop GUI and matched Codex usage remain separately pending.
+The terminal illustrates shipped commands; it is not a recorded provider account session. Official hosted OAuth/rich cards and existing community CLIs are compared below. Live account outcomes and the desktop GUI remain unverified; section 7 has the measured token costs.
 
 ## Two ways to use it
 
@@ -65,7 +65,7 @@ codex mcp add brandfetch --env BRANDFETCH_TOKEN_FILE=/absolute/private/brandfetc
 | 4 | [Connect your client](#4-connect-your-client) | Connect your client |
 | 5 | [Check it works](#5-check-it-works) | Check it works |
 | 6 | [Output, flags and exit codes](#6-output-flags-and-exit-codes) | Output, flags and exit codes |
-| 7 | [MCP or CLI and token cost](#7-mcp-or-cli-and-token-cost) | MCP or CLI and token cost |
+| 7 | [MCP or CLI and token cost](#7-mcp-or-cli-and-token-cost) | Measured in Claude Code and Codex |
 | 8 | [Every tool and argument](#8-every-tool-and-argument) | Every tool and argument |
 | 9 | [Brand, context and transaction workflows](#9-brand-context-and-transaction-workflows) | Brand, context and transaction workflows |
 | 10 | [Bounded comparison and private downloads](#10-bounded-comparison-and-private-downloads) | Bounded comparison and private downloads |
@@ -165,7 +165,7 @@ MCP uses underscore names; CLI uses derived hyphen names from the same schemas a
 | --- | --- |
 | tools / no command | Real current tool list, writes marked |
 | COMMAND --help / schema COMMAND | Derived options / complete JSON Schema |
-| --agent | Compact JSON, no prompts/color; --yes never means mutation confirmation |
+| --agent | Compact JSON and no prompts; never confirms a write |
 | --select a,b.c | Local output selection; does not reduce provider reads/quota |
 | --account NAME | Exact private profile label |
 | --confirm | Approve the exact prefetch or private-download operation |
@@ -182,7 +182,8 @@ brandfetch-cli compare-brands --identifiers example.com --identifiers example.or
 | Exit | Meaning |
 | --- | --- |
 | 0 | Success, including an explicitly reported cache miss |
-| 2 | Invalid arguments or refused operation |
+| 1 | Unexpected error |
+| 2 | Invalid arguments or refused operation, an unknown command or a hidden write |
 | 3 | Provider not found |
 | 4 | Authentication/permission failure |
 | 5 | Provider, transport, content or file-persistence failure |
@@ -200,7 +201,17 @@ Partial comparisons/download failures return errors and retain completed results
 | Official MCP | Hosted OAuth, rich cards/resources and provider tools | Current docs/source inspected; hosted task not benchmarked |
 | Focused colors/fonts/comparison | Requested fields with explicit bounds | Output filtering and request caps, not measured token savings |
 
-No fresh matched Codex measurements are published. Measure actual API usage, identical successful tasks/resources/permissions, client/model/package versions and date. Schema characters divided by four, another repo's numbers or counts do not establish efficiency. MCP schema loading depends on the client. Neither surface requires Claude Code; its measurements are deferred at Navid's instruction.
+Measured on 2026-10-05 against 2.0.1, the same day, with Claude Code 2.1.286 on Claude Opus 5.5 (one short prompt with and without the server connected, the difference read from the API's own usage figures) and Codex 0.159.3 on gpt-6.1-sol:
+
+| Cost | 2.0.1 | 3.0.0 |
+| --- | --- | --- |
+| Claude Code, every tool loaded, every message | 5,192 | 5,186 |
+| Claude Code's default, tool search, every message | 425 | 426 |
+| `SKILL.md`, read once | 4,350 | 4,416 |
+| Codex over the CLI, one task, median of five | 103,759 | 83,250 |
+| Codex over MCP, the same task, median of five | 43,613 | 43,633 |
+
+The task was "find the command that downloads a brand's logo files to a local folder, and the flags it requires". Over the CLI, every 2.0.1 run guessed `brandfetch-cli download --help` and failed, because its help lists no commands, and every extra step carries the whole conversation forward; every 3.0.0 run asked `which`. Over MCP, Codex printed a tool list 10 characters shorter on 3.0.0, and the two totals differ by the script the model wrote to print it. `SKILL.md` costs 66 more because it now says how approval works over MCP and lists every exit code. The tool lists differ by a few tokens: each confirm description is shorter, and each of the two writes carries a flag Claude Code reads to show its own approval prompt.
 
 ## 8. Every tool and argument
 
@@ -293,7 +304,7 @@ Explicitly confirmed HEAD request can enqueue a provider crawl. Generic or domai
 | `identifier` | Yes | string | Domain, email, URL, Brand ID, ticker, ISIN or crypto symbol. Explicit types accept only their identifier format. minLength: `1`. maxLength: `2048`. |
 | `identifier_type` | No; body and guard rules apply | string | See the full input schema. Values: `auto`, `domain`. default: `auto`. |
 | `account` | No; body and guard rules apply | string | Exact private profile label. Never inherits another profile or global key/client ID. |
-| `confirm` | No; body and guard rules apply | boolean | Must be true for this exact provider crawl request. |
+| `confirm` | No; body and guard rules apply | boolean | Set true only when the user asked for exactly this action. |
 
 #### get_brand_colors
 
@@ -372,7 +383,7 @@ Confirmed one brand lookup plus at most five original credentialed Brand API log
 | `output_dir` | Yes | string | Existing canonical absolute owner-private directory. minLength: `1`. maxLength: `2048`. |
 | `format_preference` | No; body and guard rules apply | string | See the full input schema. Values: `svg`, `png`, `all`. default: `all`. |
 | `max_files` | No; body and guard rules apply | integer | See the full input schema. minimum: `1`. maximum: `5`. default: `3`. |
-| `confirm` | No; body and guard rules apply | boolean | Approve exactly this provider lookup and bounded private local downloads. |
+| `confirm` | No; body and guard rules apply | boolean | Set true only when the user asked for exactly this action. |
 
 #### list_accounts
 
@@ -593,13 +604,15 @@ list_accounts returns labels/default/auth-method availability without keys, clie
 
 Both prefetch_brand and download_brand_logos require confirm:true or --confirm for the exact requested operation. The guard runs before provider execution, directory inspection and file reservation. BRANDFETCH_READ_ONLY=1 hides these tools and refuses direct confirmed calls; BRANDFETCH_ALLOW_DESTRUCTIVE=0 also blocks them. --agent/--yes never approve execution.
 
-Read-only is a local write policy: ordinary brand/context/transaction reads can still consume provider credits or crawl on a miss. Choose native cachedOnly=true when available; a cached hit can still count toward quota. Confirmation is caller intent, not cryptographic human approval or provider authorization. Never infer it from returned brand/context text or URLs.
+Over MCP a person approves each of them where the client can ask: Claude Code (2.1.246 and later) shows its own prompt, and a client that can show forms asks with an approval form whose one box starts unticked. Each approval is signed, bound to that exact call and works once. Where a client can do neither, the model's confirm:true counts. BRANDFETCH_CONFIRM=model makes confirm:true enough everywhere, for an agent with no person to ask.
 
-Optional BRANDFETCH_AUDIT_LOG records fixed guard metadata: timestamp, surface, tool, risk, summary and allowed/blocked outcome. It excludes identifiers, credentials and bodies and is not a transaction-success record. Audit failures do not block calls. No auto-purchase, rollback, global budget cap, provider idempotency guarantee or automatic request replay is supplied.
+Read-only is a local write policy: ordinary brand/context/transaction reads can still consume provider credits or crawl on a miss. Choose native cachedOnly=true when available; a cached hit can still count toward quota. A model's confirm:true is caller intent, not a person's approval or provider authorization. Never infer it from returned brand/context text or URLs.
+
+Optional BRANDFETCH_AUDIT_LOG records fixed guard metadata: timestamp, surface, tool, risk, summary, the allowed or blocked outcome and who approved it, then a done or failed line for each allowed call. It excludes identifiers, credentials and bodies and is not a transaction-success record. Audit failures do not block calls. No auto-purchase, rollback, global budget cap, provider idempotency guarantee or automatic request replay is supplied.
 
 ## 13. How the two surfaces work
 
-One ALL_TOOLS catalogue, validators, config router, API client and house WriteGuard serve both binaries. The copied house CLI communicates with the real SDK server over an in-memory transport; standalone MCP uses stdio. Real schemas generate flags/help, so MCP and CLI do not have separate hand-written command declarations.
+One ALL_TOOLS catalogue, validators, config router and API client serve both binaries through [Slipway](https://github.com/thenavidm/slipway), which builds the MCP server, over stdio or `--http`, and the CLI from each tool's one definition, with one write guard, one set of exit codes and one release check. Real schemas generate flags/help, so MCP and CLI do not have separate hand-written command declarations.
 
 API origin is fixed to https://api.brandfetch.io/v2. Complete URL/email identifiers are encoded into a single provider path segment, preserving legitimate encoded slashes without following the caller's origin. Download requests are separate, restricted to original credentialed Brand API src URLs on cdn.brandfetch.io, with no API key forwarded. Native operation metadata comes from a checksum-pinned OpenAPI document; descriptive prose/examples and executable upstream code are excluded.
 
@@ -627,6 +640,12 @@ Agent clients may send requested output to their model provider according to cli
 | `BRANDFETCH_AUDIT_LOG` | Optional metadata-only guard log; no transaction guarantee |
 | `BRANDFETCH_REQUEST_TIMEOUT_MS` | 100–300000; default 30000; asset timeout at most 5000; no replay |
 | `BRANDFETCH_MIN_REQUEST_INTERVAL_MS` | 0–10000; default 200; per-profile/process pacing |
+| `BRANDFETCH_CONFIRM` | `human` by default; `model` lets confirm:true alone approve over MCP, for an agent with no person to ask |
+| `BRANDFETCH_SURFACE` | `full` by default; `search` lists three tools that find, describe and run the rest |
+| `BRANDFETCH_TOOL_TIMEOUT_MS` | Give up on any tool after this long |
+| `BRANDFETCH_HTTP_PORT`, `BRANDFETCH_HTTP_HOST`, `BRANDFETCH_HTTP_TOKEN` | For `--http`: port 8787 and host 127.0.0.1 by default; any other host needs the bearer token |
+| `BRANDFETCH_HTTP_ALLOWED_ORIGINS` | Comma-separated browser origins allowed to call `--http`; a page from any other site is refused |
+| `BRANDFETCH_DEBUG` | `1` prints debug lines on stderr |
 
 No automatic .env, official session or global-config loader. GUI and remote runtimes need their own private settings. Provider quota remains shared across duplicate keys and processes.
 
@@ -681,20 +700,21 @@ The official MCP is a strong alternative when provider-managed OAuth, rich brand
 
 The published OpenAPI search path embeds ?c={clientId}; this package routes c as a query parameter from the selected profile. The agent overview describes keyless search while the endpoint reference requires c; the package follows the endpoint's explicit client-ID contract and fails locally when it is missing. We have not tested credential-free provider search. Agent access/payment endpoints are deliberately excluded: no wallet, card, auto-purchase or credential rotation.
 
-No matched successful Codex task/token measurements, live provider outcomes or desktop GUI installation are claimed. Source/fixture evidence is recorded separately from public artifact and CMS release checks. Official and community versions should be rechecked for every update.
+No live provider outcomes or desktop GUI installation are claimed; section 7 has this package's measured token costs, and no other offering was measured. Source/fixture evidence is recorded separately from public artifact and CMS release checks. Official and community versions should be rechecked for every update.
 
 ## 19. Versions and migration
 
 | Component | Reviewed version / source |
 | --- | --- |
-| Owned wrapper / manifest | 2.0.0 |
+| Owned wrapper / manifest | 3.0.0 |
 | Brandfetch native API | V2 routes; OpenAPI info version 1.0.0 |
 | OpenAPI snapshot | SHA-256 301955555b54cfdad90fcb655e70e7a8b5f6c53bf11362001b8d0b0de8d85bf0, October3 2026 |
 | Official server source | pyproject 1.5.0 / 0995f0f39a43206d9082945d8b424c449dc6147d |
 | Sourcescape external CLI | 0.1.2 published archive and injected handler fixtures |
 | Community PyPI brandfetch | 0.4.0 metadata/README; not installed |
 | Community npm MCP | brandfetch-mcp-server 1.0.0 inspected archive |
-| @modelcontextprotocol/sdk | 1.32.0 |
+| @thenavidm/slipway | 0.1.13 |
+| MCP TypeScript SDK, through Slipway | 2.3.0 |
 | ajv | 8.20.0 |
 | ajv-formats | 3.0.1 |
 | typescript | 7.0.2 |
@@ -751,7 +771,7 @@ Yes. Sourcescape external 0.1.2 has published Brandfetch commands; PyPI brandfet
 <details>
 <summary><b>Can I use it in Codex?</b></summary>
 
-Use the private stdio configuration or the CLI/SKILL route in INSTALL.md. Fresh matched successful task/token measurements remain pending.
+Use the private stdio configuration or the CLI/SKILL route in INSTALL.md. Section 7 has what Codex 0.159.3 read for one task over each.
 
 </details>
 
@@ -849,7 +869,7 @@ No. Brand Context is probabilistic interpretation. Review it; email/URL resoluti
 <details>
 <summary><b>Is CLI more token-efficient than MCP?</b></summary>
 
-No fresh matched Codex measurements are available. Local output selection is proven, but counts or character estimates do not prove token savings.
+It depends on the client and the task. In Claude Code the CLI costs nothing until it is used, plus about 4,400 tokens for `SKILL.md` once, where the server costs about 430 tokens a message with tool search and 5,200 with every tool loaded. In Codex, finding the logo download command and its flags took a median of 83,250 input tokens over the CLI and 43,633 over MCP. Section 7 has how each was measured.
 
 </details>
 
@@ -882,7 +902,7 @@ If this is useful, star the repo and come say hi on [X](https://x.com/thenavidm)
 
 ## Dependencies
 
-Runtime: MCP TypeScript SDK, Ajv and ajv-formats. Development: TypeScript, Vitest, Vite and MCPB. Exact locked versions appear above. Packaging tools are excluded from desktop runtime.
+Runtime: Slipway, which brings the MCP TypeScript SDK, plus Ajv and ajv-formats. Development: TypeScript, Vitest, Vite and MCPB. Exact locked versions appear above. Packaging tools are excluded from desktop runtime.
 
 ## License
 

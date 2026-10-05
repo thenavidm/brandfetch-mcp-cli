@@ -1,6 +1,6 @@
 {
   "name": "@thenavidm/brandfetch-mcp-cli",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Brandfetch MCP and shared CLI with isolated profiles, bounded comparisons and approved private asset downloads.",
   "type": "module",
   "main": "./dist/index.js",
@@ -24,12 +24,13 @@
     "check:discovery": "node scripts/check-discovery.mjs"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.32.0",
+    "@thenavidm/slipway": "^0.1.13",
     "ajv": "^8.17.1",
     "ajv-formats": "^3.0.1"
   },
   "devDependencies": {
     "@anthropic-ai/mcpb": "2.1.2",
+    "@modelcontextprotocol/sdk": "^1.32.0",
     "@types/node": "^22.10.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.2",

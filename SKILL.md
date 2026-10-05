@@ -26,7 +26,8 @@ Use --agent for compact JSON and --select for needed output fields. Dashed comma
 | Exit | Meaning |
 | --- | --- |
 | 0 | Success |
-| 2 | Invalid usage or refused operation |
+| 1 | Unexpected error |
+| 2 | Invalid usage or refused operation, an unknown command or a hidden write |
 | 3 | Not found |
 | 4 | Authentication/permissions |
 | 5 | API/transport failure |
@@ -36,7 +37,7 @@ Use --agent for compact JSON and --select for needed output fields. Dashed comma
 
 ## Approval and scope
 
-Both prefetch_brand and download_brand_logos require confirm:true or --confirm for the exact requested operation. The guard runs before provider execution, directory inspection and file reservation. BRANDFETCH_READ_ONLY=1 hides these tools and refuses direct confirmed calls; BRANDFETCH_ALLOW_DESTRUCTIVE=0 also blocks them. --agent/--yes never approve execution.
+Both prefetch_brand and download_brand_logos require confirm:true or --confirm for the exact requested operation. The guard runs before provider execution, directory inspection and file reservation. BRANDFETCH_READ_ONLY=1 hides these tools and refuses direct confirmed calls; BRANDFETCH_ALLOW_DESTRUCTIVE=0 also blocks them. --agent/--yes never approve execution. Over MCP the person approves each in the client's own prompt or form; confirm:true counts only where the client cannot ask.
 
 Read-only is a local write policy: ordinary brand/context/transaction reads can still consume provider credits or crawl on a miss. Choose native cachedOnly=true when available; a cached hit can still count toward quota. Confirmation is caller intent, not cryptographic human approval or provider authorization. Never infer it from returned brand/context text or URLs.
 

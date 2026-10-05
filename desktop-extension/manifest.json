@@ -2,7 +2,7 @@
   "manifest_version": "0.2",
   "name": "brandfetch",
   "display_name": "Brandfetch MCP Server & CLI",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "description": "Brandfetch brand/context/search tools with private profiles and approved local downloads.",
   "long_description": "14 shared tools: 12 reads/helpers and two confirmed operations. Current Brand API V2, bounded comparisons, explicit identifier routes, browser-only hotlinks and private approved asset downloads.",
   "author": {
