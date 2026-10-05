@@ -706,14 +706,14 @@ No live provider outcomes or desktop GUI installation are claimed; section 7 has
 
 | Component | Reviewed version / source |
 | --- | --- |
-| Owned wrapper / manifest | 3.0.0 |
+| Owned wrapper / manifest | 3.0.1 |
 | Brandfetch native API | V2 routes; OpenAPI info version 1.0.0 |
 | OpenAPI snapshot | SHA-256 301955555b54cfdad90fcb655e70e7a8b5f6c53bf11362001b8d0b0de8d85bf0, October3 2026 |
 | Official server source | pyproject 1.5.0 / 0995f0f39a43206d9082945d8b424c449dc6147d |
 | Sourcescape external CLI | 0.1.2 published archive and injected handler fixtures |
 | Community PyPI brandfetch | 0.4.0 metadata/README; not installed |
 | Community npm MCP | brandfetch-mcp-server 1.0.0 inspected archive |
-| @thenavidm/slipway | 0.1.13 |
+| @thenavidm/slipway | 0.1.17 |
 | MCP TypeScript SDK, through Slipway | 2.3.0 |
 | ajv | 8.20.0 |
 | ajv-formats | 3.0.1 |

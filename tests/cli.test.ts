@@ -41,6 +41,8 @@ describe("Brandfetch CLI on Slipway", () => {
       const run = await cli(answering(200), ["prefetch-brand", "--identifier", "example.test", ...extra], { env: key });
       expect(run.code).toBe(2);
       expect(JSON.parse(run.stderr).code).toBe("refused");
+      // 2.x's words for what the call can do, not a generic warning.
+      expect(JSON.parse(run.stderr).error).toContain("may affect provider crawling");
     }
   });
 
